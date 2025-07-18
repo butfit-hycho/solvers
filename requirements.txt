@@ -1,0 +1,43 @@
+# 웹 프레임워크
+flask==2.3.3
+flask-cors==4.0.0
+
+# 데이터베이스
+sqlalchemy==1.4.45
+# SQLite 사용 (개발용)
+alembic==1.9.2
+# PostgreSQL 연결
+psycopg==3.2.9
+psycopg-binary==3.2.9
+
+# 데이터 검증 및 직렬화  
+pydantic==1.10.12
+
+# 인스타그램 스크래핑
+selenium==4.15.2
+beautifulsoup4==4.12.2
+requests==2.31.0
+webdriver-manager==4.0.1
+
+# 구글 시트 연동
+google-api-python-client==2.108.0
+google-auth==2.24.0
+google-auth-oauthlib==1.1.0
+google-auth-httplib2==0.1.1
+gspread==5.12.0
+
+# 유틸리티
+python-multipart==0.0.6
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-dotenv==1.0.0
+openpyxl==3.1.2
+
+# 개발 도구
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.11.0
+flake8==6.1.0
+
+# CORS
+fastapi-cors==0.0.6 

@@ -1,0 +1,22 @@
+{
+  "name": "butfit-experience-team-frontend",
+  "version": "1.0.0",
+  "description": "BUTFIT 체험단 모집 프론트엔드",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step needed for static HTML'",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "butfit",
+    "experience-team",
+    "frontend",
+    "fitness"
+  ],
+  "author": "BUTFIT Team",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+} 
