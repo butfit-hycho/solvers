@@ -18,7 +18,17 @@ import psycopg
 import concurrent.futures
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[
+    "http://localhost:3000",
+    "http://localhost:5173", 
+    "http://localhost:8080",
+    "https://solvers-liard.vercel.app",
+    "https://solvers-gcycn6bc1-butfit-hychos-projects.vercel.app",
+    "https://solvers-qgkgemd4e-butfit-hychos-projects.vercel.app",
+    "https://solvers-dg0kgn9s5-butfit-hychos-projects.vercel.app",
+    "https://solvers-5dkv6i975-butfit-hychos-projects.vercel.app",
+    "https://butfit-hycho.github.io"
+], supports_credentials=True)
 
 # 데이터베이스 경로 설정 (Vercel 배포 고려)
 DB_PATH = os.getenv('DATABASE_PATH', '/tmp/experience_team.db' if os.getenv('VERCEL') else 'experience_team.db')
