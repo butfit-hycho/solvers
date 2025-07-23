@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BUTFIT 체험단 모집</title>
+    <title>GR-EAT 버핏 체험단 모집</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -110,6 +110,24 @@
             cursor: not-allowed;
         }
         
+        /* Select 태그 스타일링 */
+        .form-input select,
+        .form-input option {
+            background: #09080E;
+            color: #ffffff;
+        }
+        
+        select.form-input {
+            background: #09080E url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e") no-repeat right 12px center;
+            background-size: 16px;
+            appearance: none;
+            cursor: pointer;
+        }
+        
+        select.form-input:focus {
+            background-color: #0D0C12;
+        }
+        
         .address-group {
             display: flex;
             flex-direction: column;
@@ -207,14 +225,18 @@
         }
         
         .privacy-notice {
-            font-size: 12px;
-            color: #666;
-            line-height: 1.4;
-            padding: 12px;
+            font-size: 13px;
+            color: #888;
+            line-height: 1.6;
+            padding: 16px;
             background: #0D0C12;
             border-radius: 8px;
             border-left: 3px solid #00FF47;
             margin-top: 8px;
+        }
+        
+        .privacy-notice strong {
+            color: #ffffff;
         }
         
         .success-message {
@@ -253,13 +275,29 @@
 <body>
     <div class="main-container">
         <div class="header">
-            <div class="logo">BUTFIT</div>
-            <div class="subtitle">체험단 모집</div>
+            <div class="logo">GR-EAT</div>
+            <div class="subtitle">버핏 체험단 모집</div>
+        </div>
+        
+        <!-- 체험단 선택 섹션 추가 -->
+        <div class="container">
+            <h2 class="section-title">🎯 체험단 선택</h2>
+            <div class="form-group">
+                <label class="form-label" for="experience_group">체험할 제품을 선택해주세요 <span class="required">*</span></label>
+                <select id="experience_group" class="form-input" required>
+                    <option value="">체험단을 선택해주세요</option>
+                    <option value="오리지널소스">오리지널소스 체험단</option>
+                </select>
+                <div class="help-text">참여하고 싶은 체험단을 선택해주세요</div>
+            </div>
         </div>
         
         <div class="container">
             <h2 class="section-title">📝 체험단 지원서</h2>
             <form id="applicationForm">
+                <!-- 선택된 체험단 정보를 숨겨진 필드로 저장 -->
+                <input type="hidden" id="selected_group" name="selected_group">
+                
                 <div class="form-group">
                     <label class="form-label" for="name">이름 <span class="required">*</span></label>
                     <input type="text" id="name" class="form-input" placeholder="실명을 입력해주세요" required>
@@ -295,9 +333,14 @@
                     <label class="checkbox-label" for="agrees_privacy">개인정보 수집 및 이용에 동의합니다 <span class="required">*</span></label>
                 </div>
                 <div class="privacy-notice">
-                    수집항목: 이름, 전화번호, 인스타그램 계정, 주소<br>
-                    이용목적: 체험단 운영 및 제품 배송<br>
-                    보유기간: 체험단 종료 후 1개월
+                    <strong>이벤트 응모 및 체험 제품 지급을 위하여 아래와 같이 개인정보를 수집 이용하고자 합니다.</strong><br><br>
+                    
+                    <strong>[개인정보 수집 이용 내역]</strong><br>
+                    • <strong>항목:</strong> 이벤트 응모 내용(이름, 휴대폰번호, SNS 아이디)<br>
+                    • <strong>수집 및 이용 목적:</strong> 이벤트 당첨자 본인 확인, 이벤트 제품 수령 조건 확인, 이벤트 제품 지급, 이벤트 진행 안내<br>
+                    • <strong>보유기간:</strong> 이벤트 종료 후 최대 3개월(지급 내용 및 관련 문의 응대 완료 후 폐기)<br><br>
+                    
+                    회원은 개인정보의 수집 및 이용에 대한 동의를 거부할 수 있으며, 이 경우 이벤트 응모가 제한됩니다.
                 </div>
 
                 <button type="submit" class="btn-submit">지원하기</button>
@@ -336,19 +379,36 @@
             }).open();
         }
 
-        // 전화번호 자동 포맷팅
-        document.getElementById('phone').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/[^0-9]/g, '');
-            if (value.length >= 3 && value.length <= 7) {
-                value = value.substring(0, 3) + '-' + value.substring(3);
-            } else if (value.length >= 8) {
-                value = value.substring(0, 3) + '-' + value.substring(3, 7) + '-' + value.substring(7, 11);
+        // DOM이 완전히 로드된 후 이벤트 리스너 등록
+        document.addEventListener('DOMContentLoaded', function() {
+            // 체험단 선택 시 값 업데이트
+            const experienceGroupSelect = document.getElementById('experience_group');
+            const selectedGroupInput = document.getElementById('selected_group');
+            
+            if (experienceGroupSelect && selectedGroupInput) {
+                experienceGroupSelect.addEventListener('change', function(e) {
+                    selectedGroupInput.value = e.target.value;
+                });
             }
-            e.target.value = value;
-        });
+            
+            // 전화번호 자동 포맷팅
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/[^0-9]/g, '');
+                    if (value.length >= 3 && value.length <= 7) {
+                        value = value.substring(0, 3) + '-' + value.substring(3);
+                    } else if (value.length >= 8) {
+                        value = value.substring(0, 3) + '-' + value.substring(3, 7) + '-' + value.substring(7, 11);
+                    }
+                    e.target.value = value;
+                });
+            }
 
-        // 지원서 제출
-        document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+            // 지원서 제출
+            const applicationForm = document.getElementById('applicationForm');
+            if (applicationForm) {
+                applicationForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // 주소 전체 문자열 생성
@@ -358,6 +418,7 @@
             const fullAddress = `(${zipcode}) ${main} ${detail}`.trim();
             
             const data = {
+                experience_group: document.getElementById('experience_group').value,
                 name: document.getElementById('name').value,
                 phone: document.getElementById('phone').value,
                 instagram_url: document.getElementById('instagram_url').value,
@@ -369,6 +430,11 @@
             };
             
             // 유효성 검사
+            if (!data.experience_group) {
+                alert('체험단을 선택해주세요.');
+                return;
+            }
+            
             if (!data.name || !data.phone || !data.instagram_url || !data.address_main || !data.address_detail) {
                 alert('모든 필수 항목을 입력해주세요.');
                 return;
@@ -398,9 +464,20 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    // 폼 숨기고 성공 메시지 표시
-                    document.querySelector('.container:first-of-type').style.display = 'none';
-                    document.getElementById('successMessage').style.display = 'block';
+                    // 체험단 선택과 지원서 폼 숨기고 성공 메시지 표시
+                    const formContainers = document.querySelectorAll('.container');
+                    const successMessage = document.getElementById('successMessage');
+                    
+                    // 첫 번째와 두 번째 컨테이너 (체험단 선택, 지원서) 숨기기
+                    formContainers.forEach((container, index) => {
+                        if (index < 2) {
+                            container.style.display = 'none';
+                        }
+                    });
+                    
+                    if (successMessage) {
+                        successMessage.style.display = 'block';
+                    }
                     // 페이지 최상단으로 스크롤
                     window.scrollTo(0, 0);
                 } else {
@@ -415,13 +492,35 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
             }
+                });
+            }
         });
         
         // 폼 리셋 함수
         function resetForm() {
-            document.getElementById('successMessage').style.display = 'none';
-            document.querySelector('.container:first-of-type').style.display = 'block';
-            document.getElementById('applicationForm').reset();
+            const successMessage = document.getElementById('successMessage');
+            const formContainers = document.querySelectorAll('.container');
+            
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+            // 체험단 선택 컨테이너와 지원서 컨테이너 모두 보이기
+            formContainers.forEach((container, index) => {
+                if (index < 2) { // 첫 번째와 두 번째 컨테이너 (체험단 선택, 지원서)
+                    container.style.display = 'block';
+                }
+            });
+            
+            // 체험단 선택 초기화
+            const experienceGroupSelect = document.getElementById('experience_group');
+            if (experienceGroupSelect) {
+                experienceGroupSelect.value = '';
+            }
+            
+            const form = document.getElementById('applicationForm');
+            if (form) {
+                form.reset();
+            }
             window.scrollTo(0, 0);
         }
     </script>
