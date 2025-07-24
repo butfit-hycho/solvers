@@ -1,0 +1,21 @@
+{
+  "name": "gr-eat-api",
+  "version": "1.0.0",
+  "description": "GR-EAT 체험단 모집 API - 완전 무료 백엔드",
+  "main": "app.py",
+  "scripts": {
+    "start": "python3 app.py"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "keywords": [
+    "flask",
+    "api",
+    "python",
+    "glitch",
+    "free"
+  ],
+  "author": "GR-EAT Team",
+  "license": "MIT"
+} 
