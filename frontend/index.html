@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GR-EAT 버핏 체험단 모집</title>
+    <title>버핏체험단 PLUS</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -275,7 +275,7 @@
 <body>
     <div class="main-container">
         <div class="header">
-            <div class="logo">GR-EAT</div>
+            <div class="logo">버핏체험단 PLUS</div>
             <div class="subtitle">버핏 체험단 모집</div>
         </div>
         
@@ -286,7 +286,7 @@
                 <label class="form-label" for="experience_group">체험할 제품을 선택해주세요 <span class="required">*</span></label>
                 <select id="experience_group" class="form-input" required>
                     <option value="">체험단을 선택해주세요</option>
-                    <option value="오리지널소스">오리지널소스 체험단</option>
+                    <option value="오리지널소스" selected>오리지널소스 체험단</option>
                 </select>
                 <div class="help-text">참여하고 싶은 체험단을 선택해주세요</div>
             </div>
@@ -356,7 +356,6 @@
                         빠른 시일 내에 연락드리겠습니다.<br>
                         체험단 선발 결과는 개별 연락드릴 예정입니다.
                     </p>
-                    <button onclick="resetForm()" style="margin-top: 20px; background: #2A2A35; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer;">다시 지원하기</button>
                 </div>
             </div>
         </div>
@@ -365,7 +364,7 @@
     <script>
         // API 엔드포인트 설정 (환경에 따라 변경)
         const API_BASE_URL = window.location.hostname === 'localhost' 
-            ? 'http://localhost:8000' 
+            ? 'http://localhost:3000' 
             : 'https://gr-eat-api.glitch.me'; // Glitch 무료 백엔드
 
         // 다음/카카오 주소 검색 API
