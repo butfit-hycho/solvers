@@ -1,8 +1,8 @@
 {
   "functions": [
     {
-      "source": "functions",
-      "codebase": "default",
+      "source": "python",
+      "codebase": "python",
       "ignore": [
         "venv",
         ".git",
@@ -10,7 +10,33 @@
         "firebase-debug.*.log",
         "*.local"
       ],
-      "runtime": "python313"
+      "runtime": "python313",
+      "memory": "1GiB",
+      "secretEnvironmentVariables": [
+        {
+          "key": "DATABASE_URL",
+          "projectId": "solvers-9ecf1",
+          "secret": "DATABASE_URL",
+          "version": "latest"
+        }
+      ]
+    }
+  ],
+  "hosting": [
+    {
+      "site": "butfit-plus",
+      "public": "public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }

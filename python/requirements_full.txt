@@ -1,0 +1,14 @@
+firebase-functions
+firebase-admin
+flask
+flask-cors
+gspread
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-cloud-secret-manager
+requests
+selenium
+webdriver-manager
+sqlalchemy
+psycopg2-binary

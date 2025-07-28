@@ -1,0 +1,6 @@
+wget
+gnupg
+unzip
+curl
+xvfb
+google-chrome-stable 
