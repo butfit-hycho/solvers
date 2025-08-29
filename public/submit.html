@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>게시물 제출 - 버핏체험단 PLUS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: #09080E;
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .main-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: #00FF47;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #888;
+            font-weight: 400;
+        }
+        
+        .container {
+            background: #1A1A25;
+            border-radius: 20px;
+            padding: 32px 24px;
+            margin-bottom: 24px;
+            border: 1px solid #2A2A35;
+            backdrop-filter: blur(20px);
+        }
+        
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .welcome-emoji {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        
+        .welcome-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #00FF47;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+        
+        .welcome-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+        
+        .welcome-subtitle {
+            font-size: 16px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        
+        .instruction-box {
+            background: linear-gradient(135deg, rgba(0, 255, 71, 0.1), rgba(0, 229, 62, 0.05));
+            border: 2px solid rgba(0, 255, 71, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .instruction-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00FF47;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .instruction-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .instruction-item {
+            font-size: 15px;
+            color: #ffffff;
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+            line-height: 1.5;
+        }
+        
+        .instruction-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00FF47;
+            font-weight: 700;
+        }
+        
+        .product-info {
+            background: #0D0C12;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-left: 4px solid #00FF47;
+        }
+        
+        .product-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #00FF47;
+            margin-bottom: 8px;
+        }
+        
+        .product-detail {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        
+        .loading-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #2A2A35;
+            border-top: 4px solid #00FF47;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .error-emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .error-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ff4757;
+            margin-bottom: 12px;
+        }
+        
+        .error-message {
+            font-size: 16px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, #00FF47, #00E53E);
+            color: #09080E;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-family: 'Pretendard', sans-serif;
+            margin-top: 20px;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #00E53E, #00CC35);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 255, 71, 0.3);
+        }
+        
+        .instagram-guide {
+            background: #0D0C12;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+        
+        .guide-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .guide-steps {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 520px) {
+            .main-container {
+                padding: 16px;
+                max-width: 100%;
+            }
+            
+            .container {
+                padding: 24px 20px;
+            }
+            
+            .welcome-emoji {
+                font-size: 48px;
+            }
+            
+            .welcome-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <div class="logo">버핏체험단 PLUS</div>
+            <div class="subtitle">게시물 제출</div>
+        </div>
+        
+        <!-- 로딩 상태 -->
+        <div class="container" id="loadingContainer">
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <div style="color: #ccc; font-size: 16px;">정보를 불러오는 중...</div>
+            </div>
+        </div>
+        
+        <!-- 에러 상태 -->
+        <div class="container" id="errorContainer" style="display: none;">
+            <div class="error-container">
+                <div class="error-emoji">😕</div>
+                <div class="error-title">정보를 찾을 수 없습니다</div>
+                <div class="error-message" id="errorMessage">
+                    올바른 링크를 통해 접속했는지 확인해주세요.<br>
+                    (예: submit?pn=010-1234-5678)
+                </div>
+            </div>
+        </div>
+        
+        <!-- 메인 컨텐츠 -->
+        <div class="container" id="mainContainer" style="display: none;">
+            <div class="welcome-message">
+                <div class="welcome-emoji">🎉</div>
+                <div class="welcome-title">축하합니다!</div>
+                <div class="welcome-name" id="userName"></div>
+                <div class="welcome-subtitle">체험단에 선정되셨습니다!</div>
+            </div>
+            
+            <div class="product-info">
+                <div class="product-title">🎯 체험 제품</div>
+                <div class="product-detail" id="productInfo">
+                    체험 제품 정보를 불러오는 중...
+                </div>
+            </div>
+            
+            <div class="instruction-box">
+                <div class="instruction-title">
+                    📝 게시물 업로드 가이드
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">제품을 받으신 후 인스타그램에 게시물을 올려주세요</li>
+                    <li class="instruction-item">제품 사진과 함께 솔직한 후기를 작성해주세요</li>
+                    <li class="instruction-item">해시태그 #버핏체험단과 체험 제품 해시태그를 꼭 포함해주세요</li>
+                    <li class="instruction-item">게시물 업로드 후 아래 안내에 따라 링크를 제출해주세요</li>
+                </ul>
+            </div>
+            
+            <div class="instagram-guide">
+                <div class="guide-title">
+                    📱 인스타그램 링크 복사 방법
+                </div>
+                <div class="guide-steps">
+                    1. 인스타그램 앱에서 업로드한 게시물을 열어주세요<br>
+                    2. 오른쪽 상단의 ⋯ (더보기) 버튼을 터치하세요<br>
+                    3. '링크 복사' 또는 '공유' → '링크 복사'를 선택하세요<br>
+                    4. 복사한 링크를 아래 버튼을 통해 제출해주세요
+                </div>
+            </div>
+            
+            <!-- 나중에 게시물 링크 제출 버튼이 들어갈 자리 -->
+            <div style="text-align: center; margin-top: 32px;">
+                <div style="padding: 20px; background: #0D0C12; border-radius: 12px; border: 2px dashed #2A2A35;">
+                    <div style="font-size: 16px; color: #888; margin-bottom: 8px;">
+                        게시물 업로드 후
+                    </div>
+                    <div style="font-size: 14px; color: #666;">
+                        링크 제출 기능이 곧 추가될 예정입니다
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API 설정
+        const API_BASE_URL = 'https://membership-api-33jhl3xcua-uc.a.run.app';
+        
+        // URL에서 전화번호 파라미터 추출
+        function getPhoneFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('pn');
+        }
+        
+        // 지원자 정보 조회
+        async function loadApplicantInfo() {
+            const phone = getPhoneFromUrl();
+            
+            if (!phone) {
+                showError('유효하지 않은 링크입니다. 전화번호 파라미터(pn)가 필요합니다.');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/applicant/phone/${encodeURIComponent(phone)}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        showError('해당 전화번호로 등록된 지원자 정보를 찾을 수 없습니다.');
+                    } else {
+                        showError('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                    }
+                    return;
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.found && result.data) {
+                    showApplicantInfo(result.data);
+                } else {
+                    showError(result.message || '지원자 정보를 찾을 수 없습니다.');
+                }
+                
+            } catch (error) {
+                console.error('Error loading applicant info:', error);
+                showError('네트워크 오류가 발생했습니다. 인터넷 연결을 확인해주세요.');
+            }
+        }
+        
+        // 지원자 정보 표시
+        function showApplicantInfo(data) {
+            document.getElementById('loadingContainer').style.display = 'none';
+            document.getElementById('errorContainer').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'block';
+            
+            // 이름과 전화번호 표시
+            const phone = getPhoneFromUrl();
+            document.getElementById('userName').textContent = `${data.name}님 (${phone})`;
+            
+            // 체험 제품 정보 표시
+            if (data.experience_group) {
+                let productName = data.experience_group;
+                if (data.experience_group === '오리지널소스') {
+                    productName = '오리지널소스 체험단';
+                } else if (data.experience_group === '테팔') {
+                    productName = '테팔 체험단';
+                } else {
+                    productName = data.experience_group + ' 체험단';
+                }
+                document.getElementById('productInfo').textContent = productName;
+            } else {
+                document.getElementById('productInfo').textContent = '체험 제품 정보 없음';
+            }
+        }
+        
+        // 에러 메시지 표시
+        function showError(message) {
+            document.getElementById('loadingContainer').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('errorContainer').style.display = 'block';
+            document.getElementById('errorMessage').textContent = message;
+        }
+        
+        // 페이지 로드 시 실행
+        document.addEventListener('DOMContentLoaded', function() {
+            loadApplicantInfo();
+        });
+    </script>
+</body>
+</html>
